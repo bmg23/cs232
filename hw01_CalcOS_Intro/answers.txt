@@ -1,0 +1,22 @@
+1. How many bytes of RAM does the virtual machine have by default?
+    
+    1024 words of RAM but the amount of bytes per word is 
+    not defined so the actual number of bytes can change.  
+
+
+
+2. What are the registers that the virtual machine has?
+
+3. What arguments does the instruction JLZ take and what does the instruction do?
+
+4. When does the CPU check if an interrupt has occurred?
+
+5. What does the Monitor instruction S do?
+
+6. What does the Monitor instruction ! do?
+
+7. Can assembly language files contain comments? How about blank lines?
+
+8. What function is called to write bytes into memory?
+
+9. Do assembly language programs assume they are loaded into memory at certain locations?
