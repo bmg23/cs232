@@ -3,20 +3,59 @@
     1024 words of RAM but the amount of bytes per word is 
     not defined so the actual number of bytes can change.  
 
-
-
 2. What are the registers that the virtual machine has?
+
+    The registers are inside of the CPU class, they are just global variables 
+    inside of the class that can be edited. 
 
 3. What arguments does the instruction JLZ take and what does the instruction do?
 
+    Assembly Language Instructions:
+    mov <src> <dst>   move value from <src> to <dst>
+    add <val> <dst>   add value to <dst>
+    sub <val> <dst>   sub value from <dst>
+
+    <src> and <dst> can be a register name, a <value>, or *<value>.
+    *<src> means the contents of RAM at the address <src>.
+    *<reg> means the contents of RAM at the location referenced by reg.
+    You cannot move values from one RAM location to another.
+    <value> can be given in decimal or hexidecimal.
+    <val> can be a literal value or a register name.
+
+    jmp <dst> means change pc to <dst>.
+    jez <reg> <dst> means change pc to <dst> if register <reg> is 0.
+    jnz <reg> <dst> means change pc to <dst> if register <reg> is not 0.
+    jgz <reg> : > 0
+    jlz <reg> : < 0
+
+    end  means end the program
+
 4. When does the CPU check if an interrupt has occurred?
+
+    Inside of the run program function there is an if statement 
+    that checks if the interrupt variable has been set to true, 
+    it then handels the interrupt if it is true.  
 
 5. What does the Monitor instruction S do?
 
+    S <start> <end>: show memory from start to end
+    Can be used to show what is currently in memory. 
+
 6. What does the Monitor instruction ! do?
+
+    Changes the OS into debugging mode, is 
+    off on start up. 
 
 7. Can assembly language files contain comments? How about blank lines?
 
+    Yes and yes, comments are started with a #. And blank 
+    lines do not matter. 
+
 8. What function is called to write bytes into memory?
 
+    mov can add values to memory. 
+
 9. Do assembly language programs assume they are loaded into memory at certain locations?
+
+    No you have to tell the program where to go in memory. And you have to tell the OS 
+    what location in memory to execute. 
