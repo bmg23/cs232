@@ -86,6 +86,7 @@ class Monitor:
                 if instr == '?':
                     print("C <addr>: put code into RAM starting at addr")
                     print("D <addr>: put data values into RAM starting at addr")
+                    print("R <addr>: turns on batch mode")
                     print("S <start> <end>: show memory from start to end")
                     print("X <addr>: execute program starting at addr")
                     print("L <addr> <tapename>: load a program from tape to bytes starting at addr")
@@ -118,6 +119,8 @@ class Monitor:
                     self._poke_ram(arg1)
                 elif instr.upper().startswith('X '):
                     self._run_program(arg1)
+                elif instr.upper().startswith('R '):
+                    self._run_batch(arg1)
                 elif instr.upper().startswith('L '):
                     try:
                         tapename = instr.split()[2]
@@ -181,6 +184,25 @@ class Monitor:
         self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug)
         self._cpu.start()		# call run()
         self._cpu.join()		# wait for it to end
+    
+    '''HW01: Introduciton to CalOS
+        Goal: Add batch mode to CalOS 
+        Author: Brian Goins (bmg23)
+        Date: 2/9/2020
+    '''
+    def _run_batch(self,addr):
+        
+        i = 0
+        while(True):
+
+            next_program = data[addr + i]
+
+            if(next_promgram == 0):
+                self._cpu.set_batch(False)
+            else:
+                self._run_program(next_program)
+
+            i += 1
 
     def _enter_program(self, starting_addr):
         # TODO: must make sure we enter program starting on even boundary.

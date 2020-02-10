@@ -39,6 +39,8 @@ class CPU(threading.Thread):
         # stored.
         self._backup_registers = {}
 
+        self._batch = False #default batch mode is false. 
+
     def set_pc(self, pc):
         # TODO: check if value of pc is good?
         self._registers['pc'] = pc
@@ -103,6 +105,9 @@ class CPU(threading.Thread):
                 self.set_interrupt(False)  # clear the interrupt
             
             time.sleep(DELAY_BETWEEN_INSTRUCTIONS)
+
+    def set_batch(self, state):
+        self._batch = state 
 
     def parse_instruction(self, instr):
         '''return False when program is done'''
