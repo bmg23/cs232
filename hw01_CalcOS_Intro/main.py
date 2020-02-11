@@ -5,6 +5,22 @@ alter RAM, start the CPU, etc.
 @date 12/26/17
 '''
 
+'''
+    HW01: Introduction to CalOS 
+    @author Brian Goins (bmg23)
+    @date 2/7/2019
+
+    Goal:   Add batch mode, so the user
+            can run multiple programs at
+            once.
+
+    Added: 
+        main.py: _run_batch()
+    Edited: 
+        cpu.py: class variables  
+                run()
+'''
+
 
 import time
 import threading
@@ -87,6 +103,7 @@ class Monitor:
                     print("C <addr>: put code into RAM starting at addr")
                     print("D <addr>: put data values into RAM starting at addr")
                     print("S <start> <end>: show memory from start to end")
+                    print("R <start> <end>: show memory from start to end")
                     print("X <addr>: execute program starting at addr")
                     print("L <addr> <tapename>: load a program from tape to bytes starting at addr")
                     print("W <start> <end> <tapename>: write bytes from start to end to tape")
@@ -141,12 +158,7 @@ class Monitor:
                 # TODO
                 raise e
 
-    def _load_program(self, startaddr, tapename):
-        '''Load a program into memory from a stored tape (a file) starting
-        at address startaddr.'''
-        try:
-            with open(tapename, "r") as f:
-                addr = startaddr
+    def _load_program(self, startaddr, tapename):_registers['pc'] = 
                 for line in f:
                     line = line.strip()
                     if line == '':
@@ -184,14 +196,11 @@ class Monitor:
         self._cpu.start()		# call run()
         self._cpu.join()		# wait for it to end
     
-    '''
-        HW01: Introduction to CalOS 
-        @author Brian Goins (bmg23)
-        @date 2/7/2019
-    '''
+   
     def _run_batch(self, addr):
-
         self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug)
+        
+        #Puts CPU in batch mode. 
         self._cpu.set_batch(addr)
     
         # creates a new thread, passing in ram, the os, and the

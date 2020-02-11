@@ -78,10 +78,7 @@ class CPU(threading.Thread):
         self._batch = True
         self._batch_addr = addr
 
-
-
     def run(self):
-        print("CPU is running...")
         if self._batch:
             #Back up regs at 0 to use for restoring 
             self.backup_registers()
@@ -92,12 +89,12 @@ class CPU(threading.Thread):
                     return
                 
                 #Change reg addr to batch addr
-                self._registers['pc'] = self._ram[self._batch_addr]
+                self.set_pc(self._ram[self._batch_addr])
                 
-                print("Running program...")
+                #Run program
                 self._run_program()
 
-                #Restore registers before next run. 
+                #Restore registers before next run and increment batch addr.
                 self.restore_registers()
                 self._batch_addr += 1
             
