@@ -18,7 +18,7 @@ alter RAM, start the CPU, etc.
         main.py: _run_batch()
     Edited: 
         cpu.py: class variables  
-                run()
+                run
 '''
 
 
@@ -103,7 +103,7 @@ class Monitor:
                     print("C <addr>: put code into RAM starting at addr")
                     print("D <addr>: put data values into RAM starting at addr")
                     print("S <start> <end>: show memory from start to end")
-                    print("R <start> <end>: show memory from start to end")
+                    print("R <start> : puts the cpu in batch mode")
                     print("X <addr>: execute program starting at addr")
                     print("L <addr> <tapename>: load a program from tape to bytes starting at addr")
                     print("W <start> <end> <tapename>: write bytes from start to end to tape")
@@ -158,7 +158,12 @@ class Monitor:
                 # TODO
                 raise e
 
-    def _load_program(self, startaddr, tapename):_registers['pc'] = 
+    def _load_program(self, startaddr, tapename):
+        '''Load a program into memory from a stored tape (a file) starting
+        at address startaddr.'''
+        try:
+            with open(tapename, "r") as f:
+                addr = startaddr
                 for line in f:
                     line = line.strip()
                     if line == '':

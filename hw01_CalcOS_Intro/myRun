@@ -1,0 +1,41 @@
+Script started on 2020-02-10 20:27:49-0500
+]0;bmg23@maroon27: ~/cs232/hw01_CalcOS_Intro[01;32mbmg23@maroon27[00m:[01;34m~/cs232/hw01_CalcOS_Intro[00m$ ma[K[Ko[Kpython main.py
+Monitor: enter ? to see options.
+MON> l 100 fib.asm
+Main found at 100
+Tape loaded from 100 to 125
+MON> d 50
+Enter value (. to end) [50]> 6
+Enter value (. to end) [51]> .
+MON> l 20 mult.asm
+Main found at 20
+Tape loaded from 20 to 32
+MON> d 10
+Enter value (. to end) [10]> 5
+Enter value (. to end) [11]> 3
+Enter value (. to end) [12]> .
+MON> d 40
+Enter value (. to end) [40]> 100
+Enter value (. to end) [41]> 20
+Enter value (. to end) [42]> 0
+Enter value (. to end) [43]> .
+MON> r 40
+MON> s 500 510
+[0500] 1
+[0501] 1
+[0502] 2
+[0503] 3
+[0504] 5
+[0505] 8
+[0506] 0
+[0507] 0
+[0508] 0
+[0509] 0
+[0510] 0
+MON> s 10 13
+[0010] 5
+[0011] 3
+[0012] 15
+[0013] 0
+]0;bmg23@maroon27: ~/cs232/hw01_CalcOS_Intro[01;32mbmg23@maroon27[00m:[01;34m~/cs232/hw01_CalcOS_Intro[00m$ exit
+Script done on 2020-02-10 20:30:01-0500
