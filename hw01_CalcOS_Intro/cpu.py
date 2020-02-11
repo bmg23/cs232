@@ -26,6 +26,10 @@ class CPU(threading.Thread):
         self._os = os
         self._debug = debug
 
+        #Add batch mode
+        self._batch = False
+        self._batch_addr = 0
+
         # TODO: need to protect these next two variables as they are shared
         # between the CPU thread and the device threads.
         self._intr_raised = False
@@ -38,8 +42,6 @@ class CPU(threading.Thread):
         # an interrupt occurs and the current state of the CPU needs to be
         # stored.
         self._backup_registers = {}
-
-        self._batch = False #default batch mode is false. 
 
     def set_pc(self, pc):
         # TODO: check if value of pc is good?
@@ -72,9 +74,37 @@ class CPU(threading.Thread):
             self._registers['reg1'], self._registers['reg2'])
         return res
 
+    def set_batch(self, addr):
+        self._batch = True
+        self._batch_addr = addr
+
+
+
     def run(self):
-        '''Overrides run() in thread.  Called by calling start().'''
-        self._run_program()
+        print("CPU is running...")
+        if self._batch:
+            #Back up regs at 0 to use for restoring 
+            self.backup_registers()
+
+            while True:
+                #exit loop
+                if self._ram[self._batch_addr] == 0:
+                    return
+                
+                #Change reg addr to batch addr
+                self._registers['pc'] = self._ram[self._batch_addr]
+                
+                print("Running program...")
+                self._run_program()
+
+                #Restore registers before next run. 
+                self.restore_registers()
+                self._batch_addr += 1
+            
+            self._batch = False
+        else:
+            '''Overrides run() in thread.  Called by calling start().'''
+            self._run_program()
         
 
     def _run_program(self):
@@ -105,9 +135,6 @@ class CPU(threading.Thread):
                 self.set_interrupt(False)  # clear the interrupt
             
             time.sleep(DELAY_BETWEEN_INSTRUCTIONS)
-
-    def set_batch(self, state):
-        self._batch = state 
 
     def parse_instruction(self, instr):
         '''return False when program is done'''

@@ -86,7 +86,6 @@ class Monitor:
                 if instr == '?':
                     print("C <addr>: put code into RAM starting at addr")
                     print("D <addr>: put data values into RAM starting at addr")
-                    print("R <addr>: turns on batch mode")
                     print("S <start> <end>: show memory from start to end")
                     print("X <addr>: execute program starting at addr")
                     print("L <addr> <tapename>: load a program from tape to bytes starting at addr")
@@ -185,24 +184,22 @@ class Monitor:
         self._cpu.start()		# call run()
         self._cpu.join()		# wait for it to end
     
-    '''HW01: Introduciton to CalOS
-        Goal: Add batch mode to CalOS 
-        Author: Brian Goins (bmg23)
-        Date: 2/9/2020
     '''
-    def _run_batch(self,addr):
-        
-        i = 0
-        while(True):
+        HW01: Introduction to CalOS 
+        @author Brian Goins (bmg23)
+        @date 2/7/2019
+    '''
+    def _run_batch(self, addr):
 
-            next_program = data[addr + i]
+        self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug)
+        self._cpu.set_batch(addr)
+    
+        # creates a new thread, passing in ram, the os, and the
+        # starting address
+        self._cpu.start()		# call run()
+        self._cpu.join()		# wait for it to end
 
-            if(next_promgram == 0):
-                self._cpu.set_batch(False)
-            else:
-                self._run_program(next_program)
-
-            i += 1
+          
 
     def _enter_program(self, starting_addr):
         # TODO: must make sure we enter program starting on even boundary.
