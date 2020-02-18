@@ -70,37 +70,7 @@ int main(int argc, char* argv[])
         
     FILE *src, *dest;   
 
-    if(file is text) {
- 
-        src = fopen(argv[1], "r"); 
-        dest = fopen(argv[2], "w");
-
-        //ERROR 6: Cannot open file  
-        if (src == NULL) 
-        { 
-            fprintf(stderr, "Source file can not be opened/n");
-            exit(-1); 
-        } 
-    
-        if (dest == NULL) 
-        { 
-            fprintf(stderr, "Destination file can not be opened/n");
-            exit(-1); 
-        } 
-        
-        // Read contents from file 
-        char c; 
-        c = fgetc(src); 
-        while (c != EOF) 
-        { 
-            fputc(c, dest); 
-            c = fgetc(src); 
-        } 
-    
-    
-        fclose(src); 
-        fclose(dest); 
-    } else {
+    if(stat(argv[1], &sb) == 0 && sb.st_mode & S_IXUSR) { //FIle is an executable
 
         char buff[BUFSIZ]; 
         src = fopen(argv[1], "rb"); 
@@ -129,6 +99,36 @@ int main(int argc, char* argv[])
         fclose(src); 
         fclose(dest); 
 
+    } else { //Is a text file
+
+        src = fopen(argv[1], "r"); 
+        dest = fopen(argv[2], "w");
+
+        //ERROR 6: Cannot open file  
+        if (src == NULL) 
+        { 
+            fprintf(stderr, "Source file can not be opened/n");
+            exit(-1); 
+        } 
+    
+        if (dest == NULL) 
+        { 
+            fprintf(stderr, "Destination file can not be opened/n");
+            exit(-1); 
+        } 
+        
+        // Read contents from file 
+        char c; 
+        c = fgetc(src); 
+        while (c != EOF) 
+        { 
+            fputc(c, dest); 
+            c = fgetc(src); 
+        } 
+    
+    
+        fclose(src); 
+        fclose(dest); 
     }
 
     return 0; 
