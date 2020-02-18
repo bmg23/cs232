@@ -68,68 +68,37 @@ int main(int argc, char* argv[])
     } 
 
         
-    FILE *src, *dest;   
+    FILE *src, *dest;  
 
-    if(stat(argv[1], &sb) == 0 && sb.st_mode & S_IXUSR) { //FIle is an executable
+    src = fopen(argv[1], "r"); 
+    dest = fopen(argv[2], "w");
 
-        char buff[BUFSIZ]; 
-        src = fopen(argv[1], "rb"); 
-        dest = fopen(argv[2], "wb");
-        size_t n; 
+    //ERROR 6: Cannot open file  
+    if (src == NULL) 
+    { 
+        fprintf(stderr, "Source file can not be opened/n");
+        exit(-1); 
+    } 
 
-
-        //ERROR 6: Cannot open file  
-        if (src == NULL) 
-        { 
-            fprintf(stderr, "Source file can not be opened/n");
-            exit(-1); 
-        } 
+    if (dest == NULL) 
+    { 
+        fprintf(stderr, "Destination file can not be opened/n");
+        exit(-1); 
+    } 
     
-        if (dest == NULL) 
-        { 
-            fprintf(stderr, "Destination file can not be opened/n");
-            exit(-1); 
-        } 
-
-
-        while( (n=fread(buff,1,BUFSIZ, src)) != 0) {
-            fwrite( buff, 1, n, dest); 
-        }
-        
-        fclose(src); 
-        fclose(dest); 
-
-    } else { //Is a text file
-
-        src = fopen(argv[1], "r"); 
-        dest = fopen(argv[2], "w");
-
-        //ERROR 6: Cannot open file  
-        if (src == NULL) 
-        { 
-            fprintf(stderr, "Source file can not be opened/n");
-            exit(-1); 
-        } 
-    
-        if (dest == NULL) 
-        { 
-            fprintf(stderr, "Destination file can not be opened/n");
-            exit(-1); 
-        } 
-        
-        // Read contents from file 
-        char c; 
+    // Read contents from file 
+    int c; 
+    c = fgetc(src); 
+    while (c != EOF) 
+    { 
+        fputc(c, dest); 
         c = fgetc(src); 
-        while (c != EOF) 
-        { 
-            fputc(c, dest); 
-            c = fgetc(src); 
-        } 
+    } 
     
     
-        fclose(src); 
-        fclose(dest); 
-    }
+    fclose(src); 
+    fclose(dest); 
+
 
     return 0; 
 
