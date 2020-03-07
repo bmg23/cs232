@@ -1,0 +1,40 @@
+Script started on 2020-02-25 11:11:49-0500
+]0;bmg23@cs-ssh: ~/cs232[01;32mbmg23@cs-ssh[00m:[01;34m~/cs232[00m$ libelf mystery
+libelf: command not found
+]0;bmg23@cs-ssh: ~/cs232[01;32mbmg23@cs-ssh[00m:[01;34m~/cs232[00m$ nm -D mystery
+                 U accept
+                 U atoi
+                 U bind
+                 U bzero
+                 U close
+                 U exit
+                 U fflush
+                 U fwrite
+                 w __gmon_start__
+                 U htons
+                 U __libc_start_main
+                 U listen
+                 U malloc
+                 U perror
+                 U printf
+                 U puts
+                 U qsort
+                 U random
+                 U sleep
+                 U socket
+                 U sprintf
+                 U srandom
+                 U __stack_chk_fail
+0000000000602120 B stderr
+0000000000602100 B stdout
+                 U strcmp
+                 U strlen
+                 U unlink
+                 U write
+]0;bmg23@cs-ssh: ~/cs232[01;32mbmg23@cs-ssh[00m:[01;34m~/cs232[00m$ nc mys   -l myster
+nc: getaddrinfo: Servname not supported for ai_socktype
+]0;bmg23@cs-ssh: ~/cs232[01;32mbmg23@cs-ssh[00m:[01;34m~/cs232[00m$ nc -l mystery
+nc: getaddrinfo: Servname not supported for ai_socktype
+]0;bmg23@cs-ssh: ~/cs232[01;32mbmg23@cs-ssh[00m:[01;34m~/cs232[00m$ exit
+
+Script done on 2020-02-25 11:15:18-0500

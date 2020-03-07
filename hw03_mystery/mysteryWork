@@ -1,0 +1,524 @@
+Script started on 2020-02-24 17:43:51-0500
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ clear'[Kcat mystery '[Kclear
+[3J[H[2J]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ clear'[Kcat mystery ls[Kclearp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ls
+[0m[01;34mhw01_CalcOS_Intro[0m  [01;34mhw02_copy_program[0m  [01;32mmystery[0m  mysteryWork  README.md
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./muy  ystery 
+I just deleted all your files... not.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery ls[K./mystery ls[Kcp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ cp /home/cs/232/sp2020/mystery ../mystery [Kstring
+Unknown option.
+I just deleted all your files... not.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery stringcp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ cp /home/cs/232/sp2020/mystery .[16P./mystery string      -
+Unknown option.
+I just deleted all your files... not.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -cp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ cp /home/cs/232/sp2020/mystery .[21P./mystery - help
+Unknown option.
+I just deleted all your files...^[[A not.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery helpcp /home/cs/232/sp2020/mystery .[21P./mystery -cp /home/cs/232/sp2020/mystery .[18P./mystery helpcp /home/cs/232/sp2020/mystery .[21P./mystery -cp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ cp /home/cs/232/sp2020/mystery .[18P./mystery help    -h
+Usage: 
+-h: show this help message
+-n <i>: allocate <i> items
+-p <port>: use port instead of default (10234) and send data out that port on TCP
+-s: sort
+-e <seed>: use <seed> to seed the random number generator
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 1
+1804289383
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 1 2
+1804289383
+846930886
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 2 3
+1804289383
+846930886
+1681692777
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 3 1
+1804289383
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 1 100
+1804289383
+846930886
+1681692777
+1714636915
+1957747793
+424238335
+719885386
+1649760492
+596516649
+1189641421
+1025202362
+1350490027
+783368690
+1102520059
+2044897763
+1967513926
+1365180540
+1540383426
+304089172
+1303455736
+35005211
+521595368
+294702567
+1726956429
+336465782
+861021530
+278722862
+233665123
+2145174067
+468703135
+1101513929
+1801979802
+1315634022
+635723058
+1369133069
+1125898167
+1059961393
+2089018456
+628175011
+1656478042
+1131176229
+1653377373
+859484421
+1914544919
+608413784
+756898537
+1734575198
+1973594324
+149798315
+2038664370
+1129566413
+184803526
+412776091
+1424268980
+1911759956
+749241873
+137806862
+42999170
+982906996
+135497281
+511702305
+2084420925
+1937477084
+1827336327
+572660336
+1159126505
+805750846
+1632621729
+1100661313
+1433925857
+1141616124
+84353895
+939819582
+2001100545
+1998898814
+1548233367
+610515434
+1585990364
+1374344043
+760313750
+1477171087
+356426808
+945117276
+1889947178
+1780695788
+709393584
+491705403
+1918502651
+752392754
+1474612399
+2053999932
+1264095060
+1411549676
+1843993368
+943947739
+1984210012
+855636226
+1749698586
+1469348094
+1956297539
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 100[K321[2Phcp /home/cs/232/sp2020/mystery .[20P./mystery -h
+Usage: 
+-h: show this help message
+-n <i>: allocate <i> items
+-p <port>: use port instead of default (10234) and send data out that port on TCP
+-s: sort
+-e <seed>: use <seed> to seed the random number generator
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -hn 100h[K s
+35005211
+42999170
+84353895
+135497281
+137806862
+149798315
+184803526
+233665123
+278722862
+294702567
+304089172
+336465782
+356426808
+412776091
+424238335
+468703135
+491705403
+511702305
+521595368
+572660336
+596516649
+608413784
+610515434
+628175011
+635723058
+709393584
+719885386
+749241873
+752392754
+756898537
+760313750
+783368690
+805750846
+846930886
+855636226
+859484421
+861021530
+939819582
+943947739
+945117276
+982906996
+1025202362
+1059961393
+1100661313
+1101513929
+1102520059
+1125898167
+1129566413
+1131176229
+1141616124
+1159126505
+1189641421
+1264095060
+1303455736
+1315634022
+1350490027
+1365180540
+1369133069
+1374344043
+1411549676
+1424268980
+1433925857
+1469348094
+1474612399
+1477171087
+1540383426
+1548233367
+1585990364
+1632621729
+1649760492
+1653377373
+1656478042
+1681692777
+1714636915
+1726956429
+1734575198
+1749698586
+1780695788
+1801979802
+1804289383
+1827336327
+1843993368
+1889947178
+1911759956
+1914544919
+1918502651
+1937477084
+1956297539
+1957747793
+1967513926
+1973594324
+1984210012
+1998898814
+2001100545
+2038664370
+2044897763
+2053999932
+2084420925
+2089018456
+2145174067
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -s 100
+Unknown option.
+I just deleted all your files... not.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -s 100[Khn 100[K321[2Phcp /home/cs/232/sp2020/mystery .[18P./mystery helpcp /home/cs/232/sp2020/mystery .
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ cp /home/cs/232/sp2020/mystery .[16P./mystery -s 100[Kh
+Usage: 
+-h: show this help message
+-n <i>: allocate <i> items
+-p <port>: use port instead of default (10234) and send data out that port on TCP
+-s: sort
+-e <seed>: use <seed> to seed the random number generator
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -h e 5
+590011675
+99788765
+2131925610
+171864072
+317159276
+171035632
+602511920
+963050649
+1069979073
+1919854381
+33661026
+589806848
+2086105860
+475191198
+894416410
+550050020
+780437020
+583787226
+893281828
+550277486
+650366414
+990569005
+968873679
+612872373
+163967331
+1764676460
+2072834383
+841258873
+802348052
+2082417967
+1025141346
+1392359727
+34723084
+1009583308
+1564223799
+351882361
+1180618940
+19252071
+1314933010
+103114365
+1939106453
+1348594037
+692921213
+1877728665
+1823785235
+1587337623
+280295037
+456738607
+23641201
+1173576865
+1007016093
+674007615
+16662222
+1975889773
+1286879988
+180629553
+1593082585
+1212230723
+1021888427
+247946989
+1147165042
+2047029773
+1640306716
+1181888127
+909129433
+1057046868
+1533770488
+2089748373
+1076298939
+701219850
+45379090
+867921744
+2049813887
+738300303
+598166761
+1726115474
+178154278
+878461798
+35370433
+201795479
+2052038663
+1042386527
+875803094
+2068700886
+870792652
+15199434
+101846791
+316391589
+1227430158
+1123735218
+564338578
+227111552
+1023281343
+57161646
+1408999679
+1932410776
+1114208514
+795286519
+1874675501
+43023806
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -e 5[2Phcp /home/cs/232/sp2020/mystery .[20P./mystery -he 5[K./mystery -e 5[2Ph
+Usage: 
+-h: show this help message
+-n <i>: allocate <i> items
+-p <port>: use port instead of default (10234) and send data out that port on TCP
+-s: sort
+-e <seed>: use <seed> to seed the random number generator
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 10
+1804289383
+846930886
+1681692777
+1714636915
+1957747793
+424238335
+719885386
+1649760492
+596516649
+1189641421
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -n 10    s
+35005211
+42999170
+84353895
+135497281
+137806862
+149798315
+184803526
+233665123
+278722862
+294702567
+304089172
+336465782
+356426808
+412776091
+424238335
+468703135
+491705403
+511702305
+521595368
+572660336
+596516649
+608413784
+610515434
+628175011
+635723058
+709393584
+719885386
+749241873
+752392754
+756898537
+760313750
+783368690
+805750846
+846930886
+855636226
+859484421
+861021530
+939819582
+943947739
+945117276
+982906996
+1025202362
+1059961393
+1100661313
+1101513929
+1102520059
+1125898167
+1129566413
+1131176229
+1141616124
+1159126505
+1189641421
+1264095060
+1303455736
+1315634022
+1350490027
+1365180540
+1369133069
+1374344043
+1411549676
+1424268980
+1433925857
+1469348094
+1474612399
+1477171087
+1540383426
+1548233367
+1585990364
+1632621729
+1649760492
+1653377373
+1656478042
+1681692777
+1714636915
+1726956429
+1734575198
+1749698586
+1780695788
+1801979802
+1804289383
+1827336327
+1843993368
+1889947178
+1911759956
+1914544919
+1918502651
+1937477084
+1956297539
+1957747793
+1967513926
+1973594324
+1984210012
+1998898814
+2001100545
+2038664370
+2044897763
+2053999932
+2084420925
+2089018456
+2145174067
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ./mystery -s p 1234
+^C
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ string mystery
+
+Command 'string' not found, did you mean:
+
+  command 'spring' from deb ruby-spring
+  command 'spring' from deb spring
+  command 'strings' from deb binutils
+
+Try: apt install <deb name>
+
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ wc -i
+wc: invalid option -- 'i'
+Try 'wc --help' for more information.
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ wc -l
+^C
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ wc   --help 
+Usage: wc [OPTION]... [FILE]...
+  or:  wc [OPTION]... --files0-from=F
+Print newline, word, and byte counts for each FILE, and a total line if
+more than one FILE is specified.  A word is a non-zero-length sequence of
+characters delimited by white space.
+
+With no FILE, or when FILE is -, read standard input.
+
+The options below may be used to select which counts are printed, always in
+the following order: newline, word, character, byte, maximum line length.
+  -c, --bytes            print the byte counts
+  -m, --chars            print the character counts
+  -l, --lines            print the newline counts
+      --files0-from=F    read input from the files specified by
+                           NUL-terminated names in file F;
+                           If F is - then read names from standard input
+  -L, --max-line-length  print the maximum display width
+  -w, --words            print the word counts
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Full documentation at: <http://www.gnu.org/software/coreutils/wc>
+or available locally via: info '(coreutils) wc invocation'
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ file mystery
+mystery: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 2.6.32, BuildID[sha1]=24122f9cfec5c11a9f4038cf9845e906b5ca9e32, not stripped
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ [K]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ ^C
+]0;bmg23@maroon22: ~/cs232[01;32mbmg23@maroon22[00m:[01;34m~/cs232[00m$ exit
