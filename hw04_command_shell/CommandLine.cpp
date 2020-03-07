@@ -25,6 +25,10 @@ class CommandLine {
         //CommandLine constructor takes in iostream input and parses into argv while incrementing argc
         CommandLine(istream& in);
         char* getCommand() const;
+        int getArgCount();
+        char** getArgVector();
+        char* getArgVector(int i);
+        bool noAmpersand() const;
 
 
 
