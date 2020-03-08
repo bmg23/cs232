@@ -22,18 +22,20 @@ class CommandLine {
 
     public:
 
-        //CommandLine constructor takes in iostream input and parses into argv while incrementing argc
+        //CommandLine constructor takes in istream input and parses into argv while incrementing argc
         CommandLine(istream& in);
         char* getCommand() const;
         int getArgCount();
         char** getArgVector();
         char* getArgVector(int i);
         bool noAmpersand() const;
+        ~CommandLine();
 
 
 
 };
 
+//CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
             //Read in the command from istream
             char *command;
@@ -75,6 +77,10 @@ CommandLine::CommandLine(istream& in){
                        
 }
 
+//CommandLine Destructor
+CommandLine::~CommandLine(){
+    free(argv);
+}
 //Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const { 
     return argv[0];
@@ -98,16 +104,32 @@ char* CommandLine::getArgVector(int i){
 }
 
 //TODO: Make this work through every argument in argv to look for and ampersand
+//Unclear: Do we want to check every character in argv or every word?
 //return true if and only if no ampersand was given on the command line
 bool CommandLine::noAmpersand() const{
     char* andPtr = "&";
     for (int i = 0; i < argc; i++){
-        if (argv[i] == )
+        //Check if a lone argument is "&"
+        if (argv[i] == "&"){
+            return false;
+        }
+
+        //Could possibly be turned off if we don't need to loop through *all* the chars
+        //loops through characters in string
+        for(char* c = argv[i]; *c; ++c){
+            if (*c == '&'){
+                return false;
+            }
+        }
     }
+    
+    //Default return choice
+    return true;
 }
 
 int main (){
     cout << "Enter command: ";
     CommandLine cmdl (cin);
+    
     
 }
