@@ -69,14 +69,42 @@ CommandLine::CommandLine(istream& in){
             char *token = strtok(command, " ");
             while (token != NULL){
                 *token >> argv[i];
-                token = strtok(NULL, " "); 
+                token = strtok(NULL, " ");
+                i++; 
             }
                        
 }
 
+//Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const { 
     return argv[0];
     }
+//return the number of command line arguments on the command-line
+int CommandLine::getArgCount(){
+    return argc;
+}
+
+//Returns a pointer to the Argument Vector (argv)
+char** CommandLine::getArgVector(){
+    char* *arg;
+    
+    arg = argv;
+    return arg;
+}
+
+//Return a pointer to the ith (zero relative) command-line 'word'
+char* CommandLine::getArgVector(int i){
+    return argv[i];
+}
+
+//TODO: Make this work through every argument in argv to look for and ampersand
+//return true if and only if no ampersand was given on the command line
+bool CommandLine::noAmpersand() const{
+    char* andPtr = "&";
+    for (int i = 0; i < argc; i++){
+        if (argv[i] == )
+    }
+}
 
 int main (){
     cout << "Enter command: ";
