@@ -1,2 +1,4 @@
-target: CommandLine.cpp 
-	g++ -o CommandLine CommandLine.cpp 
+target: Path.cpp 
+	g++ -o Path Path.cpp
+target: Prompt.cpp
+	g++ -o Prompt Prompt.cpp

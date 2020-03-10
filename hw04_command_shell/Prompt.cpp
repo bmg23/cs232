@@ -24,3 +24,6 @@ Prompt::Prompt() {
 }
 
 //an accessor that returns the current value of the Prompt
+int main() {
+    
+}
