@@ -17,7 +17,7 @@ using namespace std;
 
 
 class CommandLine {
-    int argc;
+    int argc = 0;
     char* argv[];
 
     public:
@@ -37,29 +37,23 @@ class CommandLine {
 };
 
 //CommandLine Constructor takes in istream
-CommandLine::CommandLine(istream& in){
+CommandLine::CommandLine(istream &cmd){
             //Read in the command from istream
-            char *command;
-            in >> command;
+            char *command = cmd;
+            cout << "CommandLine input: " << command << flush;
 
             //state keeps track of whether or not the loop is tracking a word
-            int state = 0;
             int size = 0;
             //count both characters and words in the command
-            while (*command){
+            
+            while (command != NULL){
                 
-                //If the next character is a separator, set the state to 0
-                if (*command == ' ' || *command == '\n' || *command == '\t'){
-                    state = 0;
-                }
+                argv[argc] = command;
+                command = strtok(NULL, " ,\n,\t");
 
-                //If state is 0, set state = 1 and increment argument counter
-                else if (state == 0){
-                    state = 1;
-                    argc ++;
-                }
-                ++size;
-                ++command;
+                //Increment size and argument counter
+                argc++;
+                size++;
             }
 
             //Allocate space for argv based on size of the command and number of arguments
@@ -108,19 +102,10 @@ char* CommandLine::getArgVector(int i){
 //Unclear: Do we want to check every character in argv or every word?
 //return true if and only if no ampersand was given on the command line
 bool CommandLine::noAmpersand() const{
-    char* andPtr = "&";
     for (int i = 0; i < argc; i++){
         //Check if a lone argument is "&"
         if (argv[i] == "&"){
             return false;
-        }
-
-        //Could possibly be turned off if we don't need to loop through *all* the chars
-        //loops through characters in string
-        for(char* c = argv[i]; *c; ++c){
-            if (*c == '&'){
-                return false;
-            }
         }
     }
     

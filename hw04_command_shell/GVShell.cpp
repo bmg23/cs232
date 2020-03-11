@@ -41,18 +41,29 @@ void GVShell::run() {
     //Shell Loop
     do {
         //Create Prompt
-        cout << prompt.get() << "$ " << endl;
-        CommandLine cmdl = CommandLine(cin); 
-       
-        //Look for command 
-        //If command not found try to run a system call 
-        //If command is not found and not a system call report back error.
+        cout << prompt.get() << "$ ";
         
-        if(path.find(cmdl.getCommand()) != -1) {
+        //Debug stuff
+        string input; 
+        cin >> input;
+        cout << input << flush; 
+
+        CommandLine cmdl = CommandLine(cin); 
+
+        //Debug stuff
+        cout << "CommandLine initialized" << flush;
+        
+        string command = cmdl.getCommand(); 
+
+        //Debug stuff
+        cout << command << flush; 
+
+
+        if(path.find(command) != -1) {
             //Run command
 
             //Create a child process
-            pid_t child = fork()
+            pid_t child = fork(); 
 
             //Check to see if the fork failed
             if (child < 0){
@@ -61,7 +72,7 @@ void GVShell::run() {
 
             //If child succeeded, create process
             if (child == 0){
-                int index = path.find();
+                execvp(cmdl.getCommand(), cmdl.getArgVector()); 
                 
             }
 

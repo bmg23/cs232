@@ -13,26 +13,19 @@
 using namespace std;
 
 class Prompt {
-  // Method declarations
+   // Method declarations
     public:
-        Prompt();
-        string get() const;
+        Prompt() { 
+            Path = getcwd(buff, PATH_MAX + 1); 
+            strcat(Path, "/GVShell");
+        };
+        ~Prompt() { delete[] buff; };  
+        string get() const { return Path; }
 
     // Private instance variables
     private:
-        char* curr_Path;
+        char* Path;
         char buff[PATH_MAX + 1];
 
 }; 
-
-//a constructor that builds a Prompt as the full Path to the working directory
-Prompt::Prompt() {
-    curr_Path = getcwd(buff, PATH_MAX + 1);
-	strcat(curr_Path, "/GVShell");
-
-}
-
-string Prompt::get() const {
-	return curr_Path;
-}
 
