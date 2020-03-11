@@ -5,22 +5,33 @@
  * 
  * Goal: A class to represent the command-line prompt
  */ 
-
-#include <string>
+#include <string.h>
+#include <stdio.h>
 #include <iostream>
-#include <bits/stdc++.h>
- #include <stdlib.h> 
-using namespace std; 
+#include <limits.h>
+#include <unistd.h>
+using namespace std;
 
 class Prompt {
-    public: 
-        Prompt(); 
-        string get() const; 
-};
+  // Method declarations
+    public:
+        Prompt();
+        string get() const;
 
-//a constructor that builds a Prompt as the full path to the working directory
+    // Private instance variables
+    private:
+        char* curr_Path;
+        char buff[PATH_MAX + 1];
+
+//a constructor that builds a Prompt as the full Path to the working directory
 Prompt::Prompt() {
+    curr_Path = getcwd(buff, PATH_MAX + 1);
+	strcat(curr_Path, "/GVShell");
 
+}
+
+string Prompt::get() const {
+	return curr_Path;
 }
 
 //an accessor that returns the current value of the Prompt

@@ -9,6 +9,8 @@
 
 #include <string>
 #include <iostream>
+#include <stdexcept>
+#include <dirent.h>
 #include <bits/stdc++.h>
 #include <stdlib.h> 
 using namespace std; 
@@ -51,24 +53,35 @@ Path::Path() {
 *  program, or -1 if program is in no directory
 */ 
 int Path::find(const string& program) {    
-      
-    for(int i = 0; PATH.size(); ++i) {
-        string currentPath = PATH[i];
-        if(currentPath.find(program) != string::npos) {
-            return i; 
+    int index = -1;
+    DIR *dir;
+    struct dirent *ent;
+    for (int i = 0; i < PATH.size(); i++) {
+        if ((dir = opendir(PATH[i].c_str())) != NULL) {
+            while ((ent = readdir(dir)) != NULL) {
+                if (ent->d_name == program) {
+                    index = i;
+                }
+            }
+            closedir(dir);
         }
     }
+    return index;
 }
 
 // return the name of the directory whose index is i.
 string Path::getDirectory(int i) const {
+    if (i > PATH.size()) {
+		throw range_error("Index is out of range.");
+	}
+	
     return PATH[i];
 }
 
 //Main Tester
 int main() {
     Path path; 
-
+    /*
     //Test Paths
     string p1 = "WINDOWS"; 
     string p2 = "VSCode"; 
@@ -87,5 +100,5 @@ int main() {
     cout << path.getDirectory(index1) << "\n"
          << path.getDirectory(index2) << "\n"
          << path.getDirectory(index3) << "\n"; 
-
+    */
 }
