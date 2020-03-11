@@ -1,3 +1,6 @@
 {
-    "asm-code-lens.enableFindAllReferences": false
+    "asm-code-lens.enableFindAllReferences": false,
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }
