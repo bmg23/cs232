@@ -23,6 +23,8 @@ class Prompt {
         char* curr_Path;
         char buff[PATH_MAX + 1];
 
+}; 
+
 //a constructor that builds a Prompt as the full Path to the working directory
 Prompt::Prompt() {
     curr_Path = getcwd(buff, PATH_MAX + 1);
@@ -34,7 +36,3 @@ string Prompt::get() const {
 	return curr_Path;
 }
 
-//an accessor that returns the current value of the Prompt
-int main() {
-    
-}

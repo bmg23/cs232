@@ -77,28 +77,3 @@ string Path::getDirectory(int i) const {
 	
     return PATH[i];
 }
-
-//Main Tester
-int main() {
-    Path path; 
-    /*
-    //Test Paths
-    string p1 = "WINDOWS"; 
-    string p2 = "VSCode"; 
-    string p3 = "npm"; 
-
-    int index1, index2, index3;  
-
-    index1 = path.find(p1); 
-    index2 = path.find(p2); 
-    index3 = path.find(p3); 
-
-    cout << index1 << "\n"
-         << index2 << "\n"
-         << index3 << "\n"; 
-    
-    cout << path.getDirectory(index1) << "\n"
-         << path.getDirectory(index2) << "\n"
-         << path.getDirectory(index3) << "\n"; 
-    */
-}

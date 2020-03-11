@@ -23,6 +23,7 @@ class CommandLine {
     public:
 
         //CommandLine constructor takes in istream input and parses into argv while incrementing argc
+        CommandLine();
         CommandLine(istream& in);
         char* getCommand() const;
         int getArgCount();
@@ -125,11 +126,4 @@ bool CommandLine::noAmpersand() const{
     
     //Default return choice
     return true;
-}
-
-int main (){
-    cout << "Enter command: ";
-    CommandLine cmdl (cin);
-    
-    
 }
