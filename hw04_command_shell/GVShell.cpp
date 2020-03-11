@@ -43,10 +43,10 @@ void GVShell::run() {
         //Create Prompt
         cout << prompt.get() << "$ ";
         
-        //Debug stuff
-        string input; 
-        cin >> input;
-        cout << input << flush; 
+        //Debug stuff - This ended up using the input and so the CommandLine constructor call got nothing
+        //string input; 
+        //cin >> input;
+        //cout << input << flush; 
 
         CommandLine cmdl = CommandLine(cin); 
 

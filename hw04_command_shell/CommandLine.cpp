@@ -37,23 +37,28 @@ class CommandLine {
 };
 
 //CommandLine Constructor takes in istream
-CommandLine::CommandLine(istream &cmd){
+CommandLine::CommandLine(istream& in){
             //Read in the command from istream
-            char *command = cmd;
+            char command [128];
+            in.getline( command, 128);
+            //in >> command;
             cout << "CommandLine input: " << command << flush;
 
-            //state keeps track of whether or not the loop is tracking a word
             int size = 0;
-            //count both characters and words in the command
             
-            while (command != NULL){
+            //tokenize the command into the argument vector
+            char* p = strtok( command, " ");
+            char* temp = p;
+            while (temp != NULL){
                 
-                argv[argc] = command;
-                command = strtok(NULL, " ,\n,\t");
+                argv[argc] = temp;
 
-                //Increment size and argument counter
+                //increment size by the size of the current argument string
+                size += sizeof(temp);
+                temp = strtok(NULL, " ,\n,\t");
+
+                //Increment argument counter
                 argc++;
-                size++;
             }
 
             //Allocate space for argv based on size of the command and number of arguments
