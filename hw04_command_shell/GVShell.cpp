@@ -20,6 +20,8 @@ handle cd, pwd, and exit as built-in commands (you may find the chdir() and getc
 #include "Prompt.cpp"
 #include "CommandLine.cpp"
 #include <iostream>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 using namespace std; 
 
@@ -50,11 +52,12 @@ void GVShell::run() {
 
         CommandLine cmdl = CommandLine(cin); 
 
-        //Debug stuff
+        //DEBUG
         cout << "\nCommandLine initialized\n" << flush;
 
 
-        if(path.find(cmdl.getCommand()) != -1) {
+        if(path.find(cmdl.getCommand()) != NULL) {
+            //DEBUG
             cout << "Running command\n" << flush;
             //Run command
 
@@ -67,25 +70,32 @@ void GVShell::run() {
             }
 
             //If child succeeded, create process
-            if (child == 0){
+            else if (child == 0){
                 execvp(cmdl.getCommand(), cmdl.getArgVector()); 
-                
             }
 
-        } else {
+            //Otherwise it's a parent
+            else {
+                int stat;
+                //Check for ampersand in command. If there is none present, wait for the child
+                if(cmdl.noAmpersand()){
+                    pid_t cldpid = waitpid(child, &stat, 0);
+                    while (!WIFEXITED(stat)){
+                        wait(NULL);
+                    }
+                    if (WIFEXITED(stat))
+                        printf("Child %d terminated with status: %d\n", cldpid, WEXITSTATUS(stat));
+                }
+                //If there is an ampersand present, don't wait for child to exit and
+                //continue back to the top of the loop
+                else{
+                    continue;
+                }
+                
 
-            cout << "Trying System Call: " << cmdl.getCommand() << endl;
-            const char * command = cmdl.getCommand(); 
-                
-            system(command); 
-            /*
-            try {
-                
-            } catch (int e) {
-                cout << "Command failed or not found!" << endl; 
             }
-            */
-        }
+
+        } 
 
         cmdl.~CommandLine(); 
         cout << "Out of if else." << endl; 

@@ -11,14 +11,13 @@ using namespace std;
 #include <iostream>
 #include <vector>
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <string>
 #include <bits/stdc++.h>
 
 
 class CommandLine {
-    int argc = 0;
-    char* argv[];
+    
 
     public:
 
@@ -32,48 +31,63 @@ class CommandLine {
         bool noAmpersand() const;
         ~CommandLine();
 
+    private:
+        int argc = 0;
+        char** argv;
+
 
 
 };
 
 //CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
-            //Read in the command from istream
-            char command [128];
-            in.getline( command, 128);
-            //in >> command;
-            cout << "CommandLine input: " << command << flush;
+    
+//Read in input
+    argc = 1;
+    string command;
+    getline (in, command);
 
-            int size = 0;
-            
-            //tokenize the command into the argument vector
-            char* p = strtok( command, " ");
-            char* temp = p;
-            while (temp != NULL){
-                
-                argv[argc] = temp;
+    //Turn command into a char array
+    const char * cmd = command.c_str();
+    
+    //Get number of arguments
+    for(const char *c = cmd; *c; ++c) {
+        if (*c == ' ' || *c=='t' || *c == '\n'){
+            argc++;
+        }
+    }
 
-                //increment size by the size of the current argument string
-                size += sizeof(temp);
-                temp = strtok(NULL, " ,\n,\t");
+    //Copy command into non const char array cmnd
+    char cmnd[sizeof(cmd)];
+    strcpy(cmnd, cmd);
 
-                //Increment argument counter
-                argc++;
-            }
+    //DEBUG
+    cout << argc << endl;
+   
+    argv = (char**) calloc (argc+1, sizeof(char*));
 
-            //Allocate space for argv based on size of the command and number of arguments
-            char* argv = (char*)calloc(argc, size);
+    //tokenize the command into the argument vector
+    char* p = strtok(cmnd, " ");
+    char* temp = p;
 
-            //Initialize variables for command tokenization
-            int i;
-            
-            //Tokenize input command into argument vector
-            char *token = strtok(command, " ");
-            while (token != NULL){
-                *token >> argv[i];
-                token = strtok(NULL, " ");
-                i++; 
-            }
+    int i = 0;
+    while (p != NULL){
+        argv[i] = (char*) calloc (64, sizeof(char*)); 
+        argv[i] = p;
+        cout << argv[i] << endl;
+        p = strtok(NULL," ,\n,\t");
+
+        i++;
+    }
+
+    //DEBUG
+    /*cout << "Out of loop?" << endl;
+
+    for(int n = 0; n < 4; n++) {
+        cout << argv[n] << endl;
+    }
+    */
+
                        
 }
 
