@@ -18,8 +18,7 @@ class Prompt {
         Prompt() { 
             Path = getcwd(buff, PATH_MAX + 1); 
             strcat(Path, "/GVShell");
-        };
-        ~Prompt() { delete[] buff; };  
+        }; 
         string get() const { return Path; }
 
     // Private instance variables

@@ -51,15 +51,11 @@ void GVShell::run() {
         CommandLine cmdl = CommandLine(cin); 
 
         //Debug stuff
-        cout << "CommandLine initialized" << flush;
-        
-        string command = cmdl.getCommand(); 
-
-        //Debug stuff
-        cout << command << flush; 
+        cout << "\nCommandLine initialized\n" << flush;
 
 
-        if(path.find(command) != -1) {
+        if(path.find(cmdl.getCommand()) != -1) {
+            cout << "Running command\n" << flush;
             //Run command
 
             //Create a child process
@@ -77,13 +73,22 @@ void GVShell::run() {
             }
 
         } else {
+
+            cout << "Trying System Call: " << cmdl.getCommand() << endl;
+            const char * command = cmdl.getCommand(); 
+                
+            system(command); 
+            /*
             try {
-                system(cmdl.getCommand()); 
+                
             } catch (int e) {
                 cout << "Command failed or not found!" << endl; 
             }
+            */
         }
-        
+
+        cmdl.~CommandLine(); 
+        cout << "Out of if else." << endl; 
         
     } while(status); 
     

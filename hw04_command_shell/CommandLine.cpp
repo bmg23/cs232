@@ -84,7 +84,8 @@ CommandLine::~CommandLine(){
 //Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const { 
     return argv[0];
-    }
+}
+
 //return the number of command line arguments on the command-line
 int CommandLine::getArgCount(){
     return argc;
