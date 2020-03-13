@@ -60,10 +60,7 @@ void GVShell::run() {
             cout << "...Leaving" << endl; 
             exit(0); 
         }
-        else if( strcmp(cmdl.getCommand(), "ls") == 0  ||
-            strcmp(cmdl.getCommand(), "ps") == 0  ||
-            strcmp(cmdl.getCommand(), "cat") == 0 ||
-            strcmp(cmdl.getCommand(), "pwd") == 0  ) {
+        else if(strcmp(cmdl.getCommand(), "cd") == 0) {
 
             //Get command and arguments 
             string command; 
@@ -83,10 +80,7 @@ void GVShell::run() {
                 cout << "System call failed." << endl; 
             }
 
-        }
-        else if(path.find(cmdl.getCommand()) != NULL) {
-            cout << "\n\nTesting path calls..." << endl; 
-
+        } else {
             //Create a child process
             pid_t child = fork(); 
 
@@ -97,7 +91,7 @@ void GVShell::run() {
 
             //If child succeeded, create process
             else if (child == 0){
-                execvp(cmdl.getCommand(), cmdl.getArgVector()); 
+                execve(cmdl.getCommand(), cmdl.getArgVector(), NULL); 
             }
 
             //Otherwise it's a parent
@@ -111,8 +105,10 @@ void GVShell::run() {
                     while (!WIFEXITED(stat)){
                         wait(NULL);
                     }
+                    /*
                     if (WIFEXITED(stat))
                         printf("Child %d terminated with status: %d\n", chldpid, WEXITSTATUS(stat));
+                    */
                 }
                 //If there is an ampersand present, don't wait for child to exit and
                 //continue back to the top of the loop
