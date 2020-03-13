@@ -12,6 +12,7 @@ using namespace std;
 #include <vector>
 #include <stdio.h>
 //#include <stdlib.h>
+#include <string.h>
 #include <string>
 #include <bits/stdc++.h>
 
@@ -38,15 +39,10 @@ class CommandLine {
     //TODO: Keep first arg separate?
         int argc = 0;
         char** argv;
-
-
+        string cmdArg;
+        bool noAmp = true;
 
 };
-
-//Default Constructor
-CommandLine::CommandLine(){
-
-}
 
 //CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
@@ -68,25 +64,34 @@ CommandLine::CommandLine(istream& in){
 
     //Copy command into non const char array cmnd
     char cmnd[sizeof(cmd)];
-    cout << cmnd[0] << endl;
     strcpy(cmnd, cmd);
-    cout << cmnd[0] << endl;
-
-    //DEBUG
-    cout << "Argc: " << argc << endl;
    
     argv = (char**) calloc (argc+1, sizeof(char*));
 
     //tokenize the command into the argument vector
     char* p = strtok(cmnd, " ");
+
     //DEBUG
     cout << "value of p after first tokenize: " << p << endl;
+    //Store this into separate command variable cmdArg
+    cmdArg = p;
     char* temp = p;
 
     int i = 0;
+    char* amp = "&";
+
     while (p != NULL){
+        
+        cout << "Comparing strings..." << endl;
+        cout << "Running strcmp()..." << strcmp(amp, p) << endl;
+        if (strcmp(amp, p) == 0){
+            cout << "They're the same! Setting noAmp to false..." << endl;
+            noAmp = false;
+        }
+        
         argv[i] = (char*) calloc (64, sizeof(char*)); 
         argv[i] = p;
+        //Set noAmp to false if the current token is an ampersand
         
         p = strtok(NULL," ,\n,\t");
 
@@ -95,14 +100,6 @@ CommandLine::CommandLine(istream& in){
         i++;
     }
 
-    //DEBUG
-    /*cout << "Out of loop?" << endl;
-    for(int n = 0; n < 4; n++) {
-        cout << argv[n] << endl;
-    }
-    */
-   //DEBUG
-   // cout << "Check me for bugs!" << endl;            
 }
 
 //CommandLine Destructor
@@ -122,11 +119,9 @@ CommandLine & CommandLine::operator= (const CommandLine &inCdl){
 
 //Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const {
-    //DEBUG
-    //char* command = argv[0];
-
-    //cout << "command from getCommand: " << command << endl;
-    return argv[0];
+    //DEBUG - Does accessing CommandLine variables cause them to change, or something else?
+    return "Hello";
+    //return cmdArg;
     
     //return command;
 }
@@ -152,14 +147,5 @@ char* CommandLine::getArgVector(int i){
 
 //return true if and only if no ampersand was given on the command line
 bool CommandLine::noAmpersand() const{
-    for (int i = 0; i < argc; i++){
-        //Check if a lone argument is "&"
-        if (argv[i] == "&"){
-            cout << "Ampersand Present" << endl;
-            return false;
-        }
-    }
-    
-    //Default return choice
-    return true;
+    return noAmp;
 }

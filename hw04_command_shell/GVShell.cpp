@@ -34,7 +34,6 @@ class GVShell {
     private:
         Prompt prompt;
         Path path;
-        CommandLine cmd;
 
 
 };
@@ -56,16 +55,11 @@ void GVShell::run() {
 
         CommandLine cmdl = CommandLine(cin);
 
-        //Use of assignment operator should solve values changing
-        cmd = cmdl; 
-
-        //DEBUG
-        //cout << "\nCommandLine initialized\n" << flush;
-
         //DEBUG
         //cout << "Current Command: " << cmdl.getCommand() << endl;
         //path.find might be a problem
-        if(path.find(cmd.getArgVector(0)) != NULL) {
+        //argc is not a problem. Try to rely less on pointer arrays
+        if(path.find(cmdl.getCommand()) != NULL) {
             //DEBUG
             cout << "Running command\n" << flush;
             //Run command
@@ -81,7 +75,7 @@ void GVShell::run() {
             //If child succeeded, create process
             else if (child == 0){
 
-                execvp(cmd.getCommand(), cmd.getArgVector()); 
+                execvp(cmdl.getCommand(), cmdl.getArgVector()); 
             }
 
             //Otherwise it's a parent
@@ -90,27 +84,26 @@ void GVShell::run() {
                 //Check for ampersand in command. If there is none present, wait for the child
                 //DEBUG
                 cout << "Checking if ampersand present" << endl;
-                if(cmd.noAmpersand()){
-                    pid_t cldpid = waitpid(child, &stat, 0);
+                if(cmdl.noAmpersand()){
+                    pid_t chldpid = waitpid(child, &stat, 0);
                     while (!WIFEXITED(stat)){
                         wait(NULL);
                     }
                     if (WIFEXITED(stat))
-                        printf("Child %d terminated with status: %d\n", cldpid, WEXITSTATUS(stat));
+                        printf("Child %d terminated with status: %d\n", chldpid, WEXITSTATUS(stat));
                 }
                 //If there is an ampersand present, don't wait for child to exit and
                 //continue back to the top of the loop
                 else{
+                    //DEBUG
+                    cout << "No Ampersand Found" << endl;
                     continue;
                 }
-
-                
-
             }
 
         } 
 
-        cmd.~CommandLine(); 
+        cmdl.~CommandLine(); 
         cout << "Out of if else." << endl; 
         
     } while(status); 
