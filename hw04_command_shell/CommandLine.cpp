@@ -37,18 +37,19 @@ class CommandLine {
     private:
     //TODO: Maybe add bool for if ampersand is present?
     //TODO: Keep first arg separate?
-        int argc = 0;
+        int argc;
         char** argv;
-        string cmdArg;
-        bool noAmp = true;
+        char* cmdArg;
+        bool noAmp;
 
 };
 
 //CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
     
-//Read in input
-    argc = 1;
+    //Read in input
+    noAmp = true; 
+    argc = 0;
     string command;
     getline (in, command);
 
@@ -75,7 +76,6 @@ CommandLine::CommandLine(istream& in){
     cout << "value of p after first tokenize: " << p << endl;
     //Store this into separate command variable cmdArg
     cmdArg = p;
-    char* temp = p;
 
     int i = 0;
     char* amp = "&";
@@ -90,6 +90,7 @@ CommandLine::CommandLine(istream& in){
         }
         
         argv[i] = (char*) calloc (64, sizeof(char*)); 
+        cout << "\nInputing P: " << p << endl;
         argv[i] = p;
         //Set noAmp to false if the current token is an ampersand
         
@@ -104,8 +105,6 @@ CommandLine::CommandLine(istream& in){
 
 //CommandLine Destructor
 CommandLine::~CommandLine(){
-    //DEBUG
-    cout << "Calling Destructor..." << endl;
     free(argv);
 }
 
@@ -119,11 +118,8 @@ CommandLine & CommandLine::operator= (const CommandLine &inCdl){
 
 //Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const {
-    //DEBUG - Does accessing CommandLine variables cause them to change, or something else?
-    return "Hello";
-    //return cmdArg;
-    
-    //return command;
+    cout << "CommandLine..." << argv[0] << endl; 
+    return argv[0];
 }
 
 //return the number of command line arguments on the command-line
@@ -134,7 +130,6 @@ int CommandLine::getArgCount(){
 //Returns a pointer to the Argument Vector (argv)
 char** CommandLine::getArgVector(){
     char* *arg;
-    
     arg = argv;
     return arg;
 }

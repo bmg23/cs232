@@ -47,22 +47,39 @@ void GVShell::run() {
     do {
         //Create Prompt
         cout << prompt.get() << "$ ";
-        
-        //Debug stuff - This ended up using the input and so the CommandLine constructor call got nothing
-        //string input; 
-        //cin >> input;
-        //cout << input << flush; 
-
         CommandLine cmdl = CommandLine(cin);
 
-        //DEBUG
-        //cout << "Current Command: " << cmdl.getCommand() << endl;
-        //path.find might be a problem
-        //argc is not a problem. Try to rely less on pointer arrays
-        if(path.find(cmdl.getCommand()) != NULL) {
-            //DEBUG
-            cout << "Running command\n" << flush;
-            //Run command
+        const char * first_command = cmdl.getCommand();  
+        cout << "First Command: " << first_command << endl;
+
+        // | "ps" | "cat" | "pwd" | "exit"
+        if(strcmp(first_command,"ls") == 0) {
+            cout << "\n\nTesting system calls..." << flush; 
+
+            //Get command and arguments 
+            string command = first_command; 
+            char** args = cmdl.getArgVector(); 
+
+            //Add arguments to command string 
+            for(int i = 0; i < cmdl.getArgCount(); ++i) {
+                command += " "; 
+                command += args[i];   
+            }
+            cout << " Command: " << command << endl;
+
+
+            //try to run system call. 
+            try {
+                system(command.c_str());  
+            } catch(int e) {
+                cout << "System call failed." << endl; 
+            }
+
+        }
+
+
+        if(path.find(first_command) != NULL) {
+            cout << "\n\nTesting path calls..." << endl; 
 
             //Create a child process
             pid_t child = fork(); 
@@ -74,8 +91,7 @@ void GVShell::run() {
 
             //If child succeeded, create process
             else if (child == 0){
-
-                execvp(cmdl.getCommand(), cmdl.getArgVector()); 
+                execvp(first_command, cmdl.getArgVector()); 
             }
 
             //Otherwise it's a parent
@@ -95,15 +111,12 @@ void GVShell::run() {
                 //If there is an ampersand present, don't wait for child to exit and
                 //continue back to the top of the loop
                 else{
-                    //DEBUG
-                    cout << "No Ampersand Found" << endl;
                     continue;
                 }
             }
 
         } 
-
-        cmdl.~CommandLine(); 
+        
         cout << "Out of if else." << endl; 
         
     } while(status); 
