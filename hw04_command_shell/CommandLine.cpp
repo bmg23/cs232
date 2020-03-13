@@ -24,20 +24,29 @@ class CommandLine {
         //CommandLine constructor takes in istream input and parses into argv while incrementing argc
         CommandLine();
         CommandLine(istream& in);
+        CommandLine & operator= (const CommandLine &CommandLine);
         char* getCommand() const;
         int getArgCount();
         char** getArgVector();
         char* getArgVector(int i);
         bool noAmpersand() const;
+
         ~CommandLine();
 
     private:
+    //TODO: Maybe add bool for if ampersand is present?
+    //TODO: Keep first arg separate?
         int argc = 0;
         char** argv;
 
 
 
 };
+
+//Default Constructor
+CommandLine::CommandLine(){
+
+}
 
 //CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
@@ -59,45 +68,67 @@ CommandLine::CommandLine(istream& in){
 
     //Copy command into non const char array cmnd
     char cmnd[sizeof(cmd)];
+    cout << cmnd[0] << endl;
     strcpy(cmnd, cmd);
+    cout << cmnd[0] << endl;
 
     //DEBUG
-    cout << argc << endl;
+    cout << "Argc: " << argc << endl;
    
     argv = (char**) calloc (argc+1, sizeof(char*));
 
     //tokenize the command into the argument vector
     char* p = strtok(cmnd, " ");
+    //DEBUG
+    cout << "value of p after first tokenize: " << p << endl;
     char* temp = p;
 
     int i = 0;
     while (p != NULL){
         argv[i] = (char*) calloc (64, sizeof(char*)); 
         argv[i] = p;
-        cout << argv[i] << endl;
+        
         p = strtok(NULL," ,\n,\t");
+
+        //cout << "Tokenize: " << p << endl;
 
         i++;
     }
 
     //DEBUG
     /*cout << "Out of loop?" << endl;
-
     for(int n = 0; n < 4; n++) {
         cout << argv[n] << endl;
     }
     */
-
-                       
+   //DEBUG
+   // cout << "Check me for bugs!" << endl;            
 }
 
 //CommandLine Destructor
 CommandLine::~CommandLine(){
+    //DEBUG
+    cout << "Calling Destructor..." << endl;
     free(argv);
 }
+
+//Assignment operator overload
+CommandLine & CommandLine::operator= (const CommandLine &inCdl){
+    argc = inCdl.argc;
+    argv = inCdl.argv;
+
+    return *this;
+}
+
 //Return a pointer to the command portion of the command-line
-char* CommandLine::getCommand() const { 
+char* CommandLine::getCommand() const {
+    //DEBUG
+    //char* command = argv[0];
+
+    //cout << "command from getCommand: " << command << endl;
     return argv[0];
+    
+    //return command;
 }
 
 //return the number of command line arguments on the command-line
@@ -115,16 +146,16 @@ char** CommandLine::getArgVector(){
 
 //Return a pointer to the ith (zero relative) command-line 'word'
 char* CommandLine::getArgVector(int i){
+    cout << "getArgVector..." << endl;
     return argv[i];
 }
 
-//TODO: Make this work through every argument in argv to look for and ampersand
-//Unclear: Do we want to check every character in argv or every word?
 //return true if and only if no ampersand was given on the command line
 bool CommandLine::noAmpersand() const{
     for (int i = 0; i < argc; i++){
         //Check if a lone argument is "&"
         if (argv[i] == "&"){
+            cout << "Ampersand Present" << endl;
             return false;
         }
     }
