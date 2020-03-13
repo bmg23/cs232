@@ -41,65 +41,38 @@ class CommandLine {
         char** argv;
         char* cmdArg;
         bool noAmp;
+        vector<string> myArgv;
 
 };
 
 //CommandLine Constructor takes in istream
 CommandLine::CommandLine(istream& in){
-    
-    //Read in input
-    noAmp = true; 
+
     argc = 0;
-    string command;
-    getline (in, command);
 
-    //Turn command into a char array
-    const char * cmd = command.c_str();
-    
-    //Get number of arguments
-    for(const char *c = cmd; *c; ++c) {
-        if (*c == ' ' || *c=='t' || *c == '\n'){
-            argc++;
-        }
-    }
+	noAmp = true;
 
-    //Copy command into non const char array cmnd
-    char cmnd[sizeof(cmd)];
-    strcpy(cmnd, cmd);
-   
-    argv = (char**) calloc (argc+1, sizeof(char*));
+	string command;
+	getline(in, command);
 
-    //tokenize the command into the argument vector
-    char* p = strtok(cmnd, " ");
+	istringstream commandStream (command);
 
-    //DEBUG
-    cout << "value of p after first tokenize: " << p << endl;
-    //Store this into separate command variable cmdArg
-    cmdArg = p;
+	string temp;
+	while (commandStream >> temp) {
+		if (strcmp(temp.c_str(), "&") == 0) {
+			noAmp = false;
+		} else {
+			myArgv.push_back(temp);
+			argc++;
+		}
+	}
 
-    int i = 0;
-    char* amp = "&";
+	argv = new char*[myArgv.size()];
 
-    while (p != NULL){
-        
-        cout << "Comparing strings..." << endl;
-        cout << "Running strcmp()..." << strcmp(amp, p) << endl;
-        if (strcmp(amp, p) == 0){
-            cout << "They're the same! Setting noAmp to false..." << endl;
-            noAmp = false;
-        }
-        
-        argv[i] = (char*) calloc (64, sizeof(char*)); 
-        cout << "\nInputing P: " << p << endl;
-        argv[i] = p;
-        //Set noAmp to false if the current token is an ampersand
-        
-        p = strtok(NULL," ,\n,\t");
-
-        //cout << "Tokenize: " << p << endl;
-
-        i++;
-    }
+	for (size_t i = 0; i < myArgv.size(); i++) {
+		argv[i] = new char[myArgv[i].size() + 1];
+		strcpy(argv[i], myArgv[i].c_str());
+	}
 
 }
 
@@ -118,7 +91,6 @@ CommandLine & CommandLine::operator= (const CommandLine &inCdl){
 
 //Return a pointer to the command portion of the command-line
 char* CommandLine::getCommand() const {
-    cout << "CommandLine..." << argv[0] << endl; 
     return argv[0];
 }
 
@@ -129,14 +101,11 @@ int CommandLine::getArgCount(){
 
 //Returns a pointer to the Argument Vector (argv)
 char** CommandLine::getArgVector(){
-    char* *arg;
-    arg = argv;
-    return arg;
+    return argv;
 }
 
 //Return a pointer to the ith (zero relative) command-line 'word'
 char* CommandLine::getArgVector(int i){
-    cout << "getArgVector..." << endl;
     return argv[i];
 }
 

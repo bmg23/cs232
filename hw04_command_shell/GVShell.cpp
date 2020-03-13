@@ -40,6 +40,9 @@ class GVShell {
 
 GVShell::GVShell() {} //Constructor
 
+
+
+
 void GVShell::run() {
     int status = 1;  
     
@@ -49,23 +52,28 @@ void GVShell::run() {
         cout << prompt.get() << "$ ";
         CommandLine cmdl = CommandLine(cin);
 
-        const char * first_command = cmdl.getCommand();  
-        cout << "First Command: " << first_command << endl;
-
-        // | "ps" | "cat" | "pwd" | "exit"
-        if(strcmp(first_command,"ls") == 0) {
-            cout << "\n\nTesting system calls..." << flush; 
+ 
+        if(strcmp(cmdl.getCommand(), "pwd") == 0) {
+            cout << path.getCWD() << endl; 
+        }
+        else if(strcmp(cmdl.getCommand(), "exit") == 0) {
+            cout << "...Leaving" << endl; 
+            exit(0); 
+        }
+        else if( strcmp(cmdl.getCommand(), "ls") == 0  ||
+            strcmp(cmdl.getCommand(), "ps") == 0  ||
+            strcmp(cmdl.getCommand(), "cat") == 0 ||
+            strcmp(cmdl.getCommand(), "pwd") == 0  ) {
 
             //Get command and arguments 
-            string command = first_command; 
+            string command; 
             char** args = cmdl.getArgVector(); 
 
             //Add arguments to command string 
-            for(int i = 0; i < cmdl.getArgCount(); ++i) {
-                command += " "; 
-                command += args[i];   
+            for(int i = 0; i < cmdl.getArgCount(); ++i) { 
+                command += args[i];
+                command += " ";   
             }
-            cout << " Command: " << command << endl;
 
 
             //try to run system call. 
@@ -76,9 +84,7 @@ void GVShell::run() {
             }
 
         }
-
-
-        if(path.find(first_command) != NULL) {
+        else if(path.find(cmdl.getCommand()) != NULL) {
             cout << "\n\nTesting path calls..." << endl; 
 
             //Create a child process
@@ -91,7 +97,7 @@ void GVShell::run() {
 
             //If child succeeded, create process
             else if (child == 0){
-                execvp(first_command, cmdl.getArgVector()); 
+                execvp(cmdl.getCommand(), cmdl.getArgVector()); 
             }
 
             //Otherwise it's a parent
@@ -116,8 +122,6 @@ void GVShell::run() {
             }
 
         } 
-        
-        cout << "Out of if else." << endl; 
         
     } while(status); 
     

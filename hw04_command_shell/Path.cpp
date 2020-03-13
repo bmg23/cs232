@@ -13,6 +13,7 @@
 #include <dirent.h>
 #include <bits/stdc++.h>
 #include <stdlib.h> 
+#include <unistd.h>
 using namespace std; 
 
 class Path {
@@ -22,6 +23,7 @@ class Path {
         vector<string> PATH;
         int find(const string& program); 
         string getDirectory(int i) const;
+        string getCWD(); 
 
 };
 
@@ -76,4 +78,12 @@ string Path::getDirectory(int i) const {
 	}
 	
     return PATH[i];
+}
+
+//REF: https://www.tutorialspoint.com/find-out-the-current-working-directory-in-c-cplusplus
+string Path::getCWD() {
+    char buff[FILENAME_MAX]; 
+    getcwd(buff, FILENAME_MAX); 
+    string cwd(buff); 
+    return cwd; 
 }
