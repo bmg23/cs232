@@ -1,6 +1,6 @@
 /*
 * Command Line class
-* @Author: Caleb Vredevoogd (chv5@students.calvin.edu)
+* @Author: Caleb Vredevoogd (chv5@students.calvin.edu), Brian Goins (bmg23@students.calvin.edu)
 */
 
 //note: how to get path: cwd, cast that to a string
@@ -21,7 +21,6 @@ class CommandLine {
     
 
     public:
-
         //CommandLine constructor takes in istream input and parses into argv while incrementing argc
         CommandLine();
         CommandLine(istream& in);
@@ -31,17 +30,14 @@ class CommandLine {
         char** getArgVector();
         char* getArgVector(int i);
         bool noAmpersand() const;
-
         ~CommandLine();
 
     private:
-    //TODO: Maybe add bool for if ampersand is present?
-    //TODO: Keep first arg separate?
         int argc;
         char** argv;
         char* cmdArg;
         bool noAmp;
-        vector<string> myArgv;
+        vector<string> argvVector;
 
 };
 
@@ -49,7 +45,6 @@ class CommandLine {
 CommandLine::CommandLine(istream& in){
 
     argc = 0;
-
 	noAmp = true;
 
 	string command;
@@ -62,16 +57,16 @@ CommandLine::CommandLine(istream& in){
 		if (strcmp(temp.c_str(), "&") == 0) {
 			noAmp = false;
 		} else {
-			myArgv.push_back(temp);
+			argvVector.push_back(temp);
 			argc++;
 		}
 	}
 
-	argv = new char*[myArgv.size()];
+	argv = new char*[argvVector.size()];
 
-	for (size_t i = 0; i < myArgv.size(); i++) {
-		argv[i] = new char[myArgv[i].size() + 1];
-		strcpy(argv[i], myArgv[i].c_str());
+	for (size_t i = 0; i < argvVector.size(); i++) {
+		argv[i] = new char[argvVector[i].size() + 1];
+		strcpy(argv[i], argvVector[i].c_str());
 	}
 
 }

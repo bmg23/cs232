@@ -49,7 +49,7 @@ void GVShell::run() {
     //Shell Loop
     do {
         //Create Prompt
-        cout << prompt.get() << "$ ";
+        cout << path.getCWD() << "/GVShell$ ";
         CommandLine cmdl = CommandLine(cin);
 
  
@@ -62,25 +62,27 @@ void GVShell::run() {
         }
         else if(strcmp(cmdl.getCommand(), "cd") == 0) {
 
-            //Get command and arguments 
-            string command; 
+            //Get the desired path 
+            string path; 
             char** args = cmdl.getArgVector(); 
 
-            //Add arguments to command string 
-            for(int i = 0; i < cmdl.getArgCount(); ++i) { 
-                command += args[i];
-                command += " ";   
-            }
+            path = args[1]; 
 
-
+    
             //try to run system call. 
             try {
-                system(command.c_str());  
+                chdir(path.c_str()); 
             } catch(int e) {
-                cout << "System call failed." << endl; 
+                cout << "Change in directory failed." << endl; 
             }
 
         } else {
+
+            if(path.find(cmdl.getCommand()) == -1) {
+                cout << "Command not found" << endl; 
+                continue;
+            }
+
             //Create a child process
             pid_t child = fork(); 
 
@@ -90,30 +92,33 @@ void GVShell::run() {
             }
 
             //If child succeeded, create process
-            else if (child == 0){
-                execve(cmdl.getCommand(), cmdl.getArgVector(), NULL); 
-            }
+            else if (child == 0){ 
+                int index = path.find(cmdl.getCommand()); 
+                
+                string directory_to_path = path.getDirectory(index); 
+                directory_to_path += "/";
+                directory_to_path += cmdl.getCommand(); 
 
-            //Otherwise it's a parent
-            else {
+                char ** argVec = cmdl.getArgVector(); 
+                argVec[cmdl.getArgCount()] = NULL; 
+                cout << endl; 
+                execve(directory_to_path.c_str(), argVec, NULL); 
+            } else {
                 int stat;
                 //Check for ampersand in command. If there is none present, wait for the child
-                //DEBUG
-                cout << "Checking if ampersand present" << endl;
                 if(cmdl.noAmpersand()){
                     pid_t chldpid = waitpid(child, &stat, 0);
                     while (!WIFEXITED(stat)){
                         wait(NULL);
                     }
+                    kill(child, SIGKILL); 
                     /*
                     if (WIFEXITED(stat))
                         printf("Child %d terminated with status: %d\n", chldpid, WEXITSTATUS(stat));
                     */
-                }
-                //If there is an ampersand present, don't wait for child to exit and
-                //continue back to the top of the loop
-                else{
-                    continue;
+                } else {
+                    cout << endl; 
+                    continue; 
                 }
             }
 

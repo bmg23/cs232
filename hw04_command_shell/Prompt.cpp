@@ -1,3 +1,4 @@
+ 
 /* Prompt.cpp, CS232 Prof. Norman
  *
  * Author:  Brian Goins (bmg23@students.calvin.edu)
@@ -27,4 +28,3 @@ class Prompt {
         char buff[PATH_MAX + 1];
 
 }; 
-

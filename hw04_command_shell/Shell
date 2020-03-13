@@ -1,0 +1,39 @@
+Script started on 2020-03-13 15:25:45-0400
+]0;bmg23@gold18: ~/cs232/hw04_command_shell[01;32mbmg23@gold18[00m:[01;34m~/cs232/hw04_command_shell[00m$ g++ -o GVShell Gv VShell.cpp
+In file included from [01m[KGVShell.cpp:19:0[m[K:
+[01m[KPath.cpp:[m[K In constructor '[01m[KPath::Path()[m[K':
+[01m[KPath.cpp:38:23:[m[K [01;35m[Kwarning: [m[KNULL used in arithmetic [[01;35m[K-Wpointer-arith[m[K]
+     while(pPath[i] != [01;35m[KNULL[m[K)
+                       [01;35m[K^~~~[m[K
+]0;bmg23@gold18: ~/cs232/hw04_command_shell[01;32mbmg23@gold18[00m:[01;34m~/cs232/hw04_command_shell[00m$ ./GVShell 
+/home/bmg23/cs232/hw04_command_shell/GVShell$ pwd
+/home/bmg23/cs232/hw04_command_shell
+/home/bmg23/cs232/hw04_command_shell/GVShell$ cd..
+Command not found
+/home/bmg23/cs232/hw04_command_shell/GVShell$ cd ..
+/home/bmg23/cs232/GVShell$ ls
+
+hw01_CalcOS_Intro  hw02_copy_program  hw03_mystery  hw04_command_shell
+/home/bmg23/cs232/GVShell$ ping G google.com &
+
+/home/bmg23/cs232/GVShell$ 
+PING google.com (216.58.192.238) 56(84) bytes of data.
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=1 ttl=52 time=8.02 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=2 ttl=52 time=8.06 ms
+ls64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=3 ttl=52 time=8.04 ms
+
+
+hw01_CalcOS_Intro  hw02_copy_program  hw03_mystery  hw04_command_shell
+/home/bmg23/cs232/GVShell$ 64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=4 ttl=52 time=7.97 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=5 ttl=52 time=8.00 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=6 ttl=52 time=8.13 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=7 ttl=52 time=8.04 ms
+pwd
+/home/bmg23/cs232
+/home/bmg23/cs232/GVShell$ 64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=8 ttl=52 time=7.98 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=9 ttl=52 time=7.97 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=10 ttl=52 time=8.05 ms
+64 bytes from ord30s26-in-f14.1e100.net (216.58.192.238): icmp_seq=11 ttl=52 time=8.02 ms
+
+...Leaving
+Script done on 2020-03-13 15:27:19-0400
