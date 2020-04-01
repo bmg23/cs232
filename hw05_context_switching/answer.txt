@@ -1,0 +1,52 @@
+1. Where is the PCB class defined?
+
+    The PCB class is defined in calos.py, it is not a subclass 
+    of CalOs it is its own class. 
+
+2. What information does a PCB object contain?
+
+    All get_ functions; entry point, state, registers, quantum, pid, name.
+    Entry Point: 
+
+    State: Defines where a process is at, can be 
+            NEW, READY, RUNNING, WAITING, DONE 
+
+    Registers: The CPU in this architecture has 3 registers and 
+                a program counter these need to be backed up inorder 
+                for the program to remember where it is at. 
+
+    Quantum: Represents how long a process has been running. 
+
+    pid: Process Identifier. More important for the computer.  
+
+    name: Name of process. More important for the user than the computer. 
+
+3. When is a PCB created? Which line in which file creates a PCB?
+    The PCB is created in main.py inside of _load_program(). More specifically it 
+    is created within the try catch loop, after the tape (file) is opened to be 
+    read.  
+
+4. What process states have been defined?
+   NEW: Process has been creeated is not in ready queue.
+   READY: Process is in ready queue. Could have already been running.
+   RUNNING: Process has been taken out of the ready q and is the current process. 
+   WAITING: Not used in the specific code I wrote. 
+   DONE: Process has finished running. 
+
+5. Regarding the variable current_proc: Where has it been defined and what is its significance?  
+
+    current_proc is defined in calos.py inside of the CalOs Class. It defines the current process
+    running in the operating system. 
+
+6. In the TimerController class, what does code that reads
+ 	with self._mutex:
+ 	    code here... 		
+    do?
+
+    mutex is a global variable set equal to threading lock, so that two processes can not access the timer at the 
+    same time. This prevents one process from setting the timer to an incorrect time. 
+
+7. In the TimerController class, explain what the code does when the countdown goes to 0 (i.e., the time expires).
+
+    If the countdown hits 0, an interrupt is created and the cpu is locked from handeling all other interrupts
+    until the first one is done. It then sets the countdown to 0 so the cpu does not act on that process. 
