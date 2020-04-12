@@ -11,116 +11,133 @@
 #include <stdbool.h>
 #include <sys/queue.h>
 
-/*****************************BUFFER STUFF******************************************************/
-struct thread_buffer {
-    int front, rear, size;
-    pthread_t thread_array[5]; 
-} customer_buffer; 
-
-int getCount() {
-    return customer_buffer.rear - customer_buffer.front; 
-}
-
-bool isEmpty() { return getCount() == 0; }
-bool isFull() { return getCount() == 4; } 
-/*****************************BUFFER STUFF******************************************************/
-
 #define N_BAKER_THREADS 2
 #define N_CUSTOMER_THREADS 10
 
-#define N_CUSTOMERS_IN_STORE 5
+#define N_CUSTOMERS_IN_STORE 4
 
 #define TIME_TO_BAKE 1000000
 #define TASK_TIME 1000000 
 
+
+/******************************************BUFFER**************************************************/
+struct thread_buffer {
+    int write, read, size;
+    pthread_t thread_array[N_CUSTOMERS_IN_STORE]; 
+} cust_buff; 
+
+bool buffIsFull() { 
+    if((cust_buff.write + 1) % N_CUSTOMERS_IN_STORE == cust_buff.read){
+        return true; 
+    } else {return false; } 
+}
+
+bool buffIsEmpty() { 
+    if(cust_buff.write == cust_buff.read) {
+        return true; 
+    } else { return false; } 
+}
+
+void moveRead() { cust_buff.read = (cust_buff.read + 1) % N_CUSTOMERS_IN_STORE; }
+
+void moveWrite() { cust_buff.write = (cust_buff.write + 1) % N_CUSTOMERS_IN_STORE; }
+/******************************************BUFFER**************************************************/
+
 //Global variables 
 sem_t sem_baker; 
-sem_t sem_customer; 
+sem_t sem_customer;  
 
-
-//Global values
-int baked_loaves; 
-int sold_loaves;  
+int sold_loaves; 
 
 //Bake bread, stop and help a customer if they enter
 void* baker(void* arg) {
-    
+    int baked_loaves = 0; 
     while(baked_loaves < 10) {        
         sem_wait(&sem_baker);     
         //Bake bread
         ++baked_loaves;  
 
-          
-        //Bake Time 
         usleep(TIME_TO_BAKE);       
 
         printf("\nJust baked bread! Total loaves today are: %d\n", baked_loaves); 
 
         sem_post(&sem_baker);
 
-      
+        usleep(TASK_TIME); 
     }
 
-    
 }
 
 //Help customers in the store
 void* cashier(void* arg) {
+   
     while(sold_loaves < 10) {
-        sem_wait(&sem_baker); 
+        sem_wait(&sem_baker);
         sem_wait(&sem_customer); 
 
-        while(baked_loaves == 0) {
-            usleep(1000); 
-        }
 
         //Get the current customer
-        pthread_t tempThread; tempThread = customer_buffer.thread_array[customer_buffer.front++ % customer_buffer.size]; 
-        //Task Time 
+        pthread_t customer_thread = cust_buff.thread_array[cust_buff.read]; 
+
         usleep(TASK_TIME); 
 
-        //Transaction with customer        
-        printf("\nCustomer %d picked up a loaf of bread.\n", tempThread);
-        printf("Customer %d paid for loaf.\n", tempThread);
+        //Transaction with customer   
+        printf("\n**************************************\n");
+        printf("Customer %d picked up a loaf of bread.\n", customer_thread);
+        printf("Customer %d paid for loaf.\n", customer_thread);
         printf("The Baker has printed the reciept.\n"); 
-        printf("Customer %d has left the store.\n", tempThread); 
-
-
-        //Task Time 
-        usleep(TASK_TIME); 
-
+        
+        
 
 
         //Sell bread and let customer move out. 
         ++sold_loaves; 
+        moveRead(); 
+
+        usleep(TASK_TIME); 
+
+
+
         printf("Sold bread! Total sold loaves today are: %d\n", sold_loaves); 
-        customer_buffer.front = customer_buffer.front + 1; 
-        
+        printf("Customer %d has left the store.\n", customer_thread); 
+        printf("**************************************\n");
+        //End of transaction
+ 
+        //pthread_cancel(customer_thread); 
+     
+
         sem_post(&sem_customer);
-        sem_post(&sem_baker); 
-        
-         
+        sem_post(&sem_baker);
+
+        usleep(TASK_TIME); 
     }
 
 }
 
 //Allow customers to enter store
 void* customer() {
- 
-    sem_wait(&sem_customer); 
 
-   
-    printf("\nCustomer %d is getting in line.\n", pthread_self());
+    while(1) {
+        sem_wait(&sem_customer); 
+        if(!buffIsFull()) {         
+            printf("\nCustomer %d is getting in line.\n", pthread_self());
 
-    customer_buffer.thread_array[customer_buffer.rear++ % customer_buffer.size] = pthread_self(); 
-    customer_buffer.size = customer_buffer.size + 1; 
+            //Customer gets in line
+            cust_buff.thread_array[cust_buff.write] = pthread_self(); 
+            moveWrite(); 
+
+            usleep(TASK_TIME);             
+
+            sem_post(&sem_customer);
+            //Thread exits 
+            break; 
+        } 
+        sem_post(&sem_customer); 
+
+
+        usleep(TASK_TIME); 
         
-    
-    
-
-    sem_post(&sem_customer); 
-    //Task Time 
-    usleep(TASK_TIME);
+    }
 }
 
 
@@ -131,10 +148,18 @@ int main() {
     //Initalize global semaphores
     sem_init(&sem_baker, 0, 2); 
     sem_init(&sem_customer, 0, 1); 
+    int sold_loaves = 0;
 
-    customer_buffer.front = 0;
-    customer_buffer.rear = 0;
-    customer_buffer.size = N_CUSTOMERS_IN_STORE;
+    //Create Baker
+    pthread_t thread_baker; 
+    pthread_t thread_cashier;
+    
+    pthread_create(&thread_baker, NULL, baker,  NULL);
+
+
+    cust_buff.read = 0;
+    cust_buff.write = 0;
+
     
     
     //Create Customers
@@ -143,25 +168,12 @@ int main() {
 
     
     for(i = 0; i < 10; ++i) {
-        pthread_create(&thread_customers, NULL, customer, NULL); 
+        pthread_create(&thread_customers[i], NULL, customer, NULL); 
     }
 
 
-    //Create Baker
-    pthread_t thread_baker; 
-    pthread_t thread_cashier;
-    
-    pthread_create(&thread_baker, NULL, baker,  NULL);
-   
-
-    //Initalize global vars
-    baked_loaves = 0;
-    sold_loaves = 0; 
-
- 
-
-    
     pthread_create(&thread_cashier, NULL, cashier,  NULL); 
+    
     
     // Call pthread_exit(NULL); so that the main program does not exit until all threads have exited.
     pthread_exit(NULL); 
