@@ -1,0 +1,13 @@
+Does your program run the same way each time? Why?
+
+    The code runs the same everytime minus what threads get in 
+    line at which time. This is because everything is called at the same time 
+    and the semaphores do not allow for 'volatile' behavior. 
+
+
+Give your last customer thread the highest priority. Does this
+ ensure that this customer is always given first priority? Why or why not?
+
+    No this does not ensure first priority, because there are race conditions 
+    involved and there is not a priotity queue where threads can jump in front
+    of one and other. 
