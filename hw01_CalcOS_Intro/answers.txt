@@ -1,51 +1,31 @@
 1. How many bytes of RAM does the virtual machine have by default?
     
     1024 words of RAM but the amount of bytes per word is 
-    not defined so the actual number of bytes can change.  
+    not defined so the actual number of bytes can change. 
 
 2. What are the registers that the virtual machine has?
 
-    The registers are inside of the CPU class, they are just global variables 
-    inside of the class that can be edited. 
+    3 registers, and a program counter. 
+
 
 3. What arguments does the instruction JLZ take and what does the instruction do?
 
-    JLZ takes two arguments a register and destination, and will jump too the 
-    destination if the values in the register is less then 0.   
+    Assembly Language Instructions:
+    mov <src> <dst>   move value from <src> to <dst>
+    add <val> <dst>   add value to <dst>
+    sub <val> <dst>   sub value from <dst>
+
 
 4. When does the CPU check if an interrupt has occurred?
 
-    Inside of the run program function there is an if statement 
-    that checks if the interrupt variable has been set to true, 
-    it then handels the interrupt if it is true.  
+    
 
 5. What does the Monitor instruction S do?
 
-    S shows memory from start to end. 
-    Can be used to show what is currently in memory.
-    The way it is used is S <start address> <end address>, 
-    then displays each address value and data.  
-
 6. What does the Monitor instruction ! do?
-
-    Changes the OS into debugging mode, is 
-    off on start up. When debugging mode is
-    toggled on, after each command the value of 
-    pc, reg 0-2 are shown. 
 
 7. Can assembly language files contain comments? How about blank lines?
 
-    Yes and yes, comments are started with a #. And blank 
-    lines do not matter, because it is being read like text files
-    so any line starting with # is ignored and any blank line is skipped 
-    over.
-
 8. What function is called to write bytes into memory?
 
-    mov can add values to memory, in assembly. You can write values 
-    into RAM using the OS D command. 
-
 9. Do assembly language programs assume they are loaded into memory at certain locations?
-
-    No you have to tell the program where to go in memory. And you have to tell the OS 
-    what location in memory to execute. 

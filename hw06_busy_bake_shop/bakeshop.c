@@ -83,8 +83,8 @@ void* cashier(void* arg) {
 
         //Transaction with customer   
         printf("\n**************************************\n");
-        printf("Customer %d picked up a loaf of bread.\n", customer_thread);
-        printf("Customer %d paid for loaf.\n", customer_thread);
+        printf("Customer %ld picked up a loaf of bread.\n", customer_thread);
+        printf("Customer %ld paid for loaf.\n", customer_thread);
         printf("The Baker has printed the reciept.\n"); 
         
         
@@ -99,7 +99,7 @@ void* cashier(void* arg) {
 
 
         printf("Sold bread! Total sold loaves today are: %d\n", sold_loaves); 
-        printf("Customer %d has left the store.\n", customer_thread); 
+        printf("Customer %ld has left the store.\n", customer_thread); 
         printf("**************************************\n");
         //End of transaction
  
@@ -120,7 +120,7 @@ void* customer() {
     while(1) {
         sem_wait(&sem_customer); 
         if(!buffIsFull()) {         
-            printf("\nCustomer %d is getting in line.\n", pthread_self());
+            printf("\nCustomer %ld is getting in line.\n", pthread_self());
 
             //Customer gets in line
             cust_buff.thread_array[cust_buff.write] = pthread_self(); 
