@@ -1,6 +1,8 @@
 import time
 import threading   # for Lock
 
+from ram import MMU
+
 MAX_CHARS_PER_ADDR = 4
 
 # Time to delay between executing instructions, in seconds.
@@ -18,7 +20,7 @@ ILLEGAL_INSTRUCTION = 2
 
 class CPU:
 
-    def __init__(self, ram, os, num=0):
+    def __init__(self, ram, mmu, os, num=0):
 
         # TODO: the CPU should know nothing about the OS.  The CPU should
         # just execute instructions and handle the interrupts.  We should
@@ -36,6 +38,7 @@ class CPU:
             }
 
         self._ram = ram
+        self._mmu = MMU(ram)
         self._os = os
         self._debug = False
         # Set _stop to True to "power down" the CPU.
@@ -274,7 +277,7 @@ class CPU:
         RAM at the addr, which might be decimal
         or hex.'''
         addr = eval(addr[1:])
-        return self._ram[addr]
+        return self._mmu.get_val(addr)
 
     def _get_srcval(self, src):
         if self.isregister(src):

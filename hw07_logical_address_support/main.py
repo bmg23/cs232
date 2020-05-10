@@ -1,7 +1,7 @@
 import calos
 from cpu import CPU, MAX_CHARS_PER_ADDR
 from ram import RAM
-
+ 
 
 '''
 Architecture Description:
@@ -59,6 +59,7 @@ class Monitor:
     def __init__(self, ram):
         self._debug = False
         self._ram = ram
+        
         
         self._os = calos.CalOS()
         self._cpus = [ CPU(self._ram, self._os, 0) ] # , CPU(self._ram, self._os, 1) ]
